@@ -1,11 +1,17 @@
 from room import Room
 from player import Player
-import textwrap
-# Declare all the rooms
+from item import Item
 
+# Create items
+items = {
+    'key': Item('key', 'A rusty old key.'),
+    'sword': Item('sword', '-A heavy, worn [sword]. Sharp enough.')
+}
+
+# Declare all the rooms
 room = {
     'outside':  Room("Outside Cave Entrance",
-                     "North of you, the cave mount beckons"),
+                     "North of you, the cave mount beckons", [items['sword']]),
 
     'foyer':    Room("Foyer", """Dim light filters in from the south. Dusty
 passages run north and east."""),
@@ -57,14 +63,25 @@ command = ''
 
 # user actions
 def do(command):
-    if (command == 'n' or
-    command == 'e' or
-    command == 's' or
-    command == 'w'):
+    print('\n')
+    command = command.strip()
+    command = command.split(' ')
+
+    if (command[0] == 'n' or
+    command[0] == 'e' or
+    command[0] == 's' or
+    command[0] == 'w'):
         player.move(command)
+    if command[0] == 'look':
+        player.current_room.look()
+    if command[0] == 'take':
+        if len(command) > 1:
+            player.current_room.take(command[1], player)
+        else:
+            print('Specify an item to take.')
+    print('\n')
 
-
-
+# game loop
 while command != 'q':
     print(player)
     command = input('Command: ')
