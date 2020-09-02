@@ -50,9 +50,22 @@ room['treasure'].s_to = room['narrow']
 # Print an error message if the movement isn't allowed.
 #
 # If the user enters "q", quit the game.
-name = input('Enter your name: ')
+# name = input('Enter your name: ')
+name = 'Drew'
 player = Player(name, room['outside'])
 command = ''
+
+# user actions
+def do(command):
+    if (command == 'n' or
+    command == 'e' or
+    command == 's' or
+    command == 'w'):
+        player.move(command)
+
+
+
 while command != 'q':
     print(player)
     command = input('Command: ')
+    do(command)

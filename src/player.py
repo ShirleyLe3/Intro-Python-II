@@ -6,4 +6,9 @@ class Player:
         self.name = name
         self.current_room = current_room
     def __str__(self):
-        return (f'Room: {self.current_room.name}\nDescription: {self.current_room.description}')
+        return (f'-----\nRoom: {self.current_room.name}\nDescription: {self.current_room.description}\n-----')
+    def move(self, direction):
+        if self.current_room[direction] is not None:
+            self.current_room = self.current_room[direction]
+        else:
+            print('Cannot go that way.')
