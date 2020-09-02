@@ -1,5 +1,6 @@
 from room import Room
-
+from player import Player
+import textwrap
 # Declare all the rooms
 
 room = {
@@ -49,3 +50,9 @@ room['treasure'].s_to = room['narrow']
 # Print an error message if the movement isn't allowed.
 #
 # If the user enters "q", quit the game.
+name = input('Enter your name: ')
+player = Player(name, room['outside'])
+command = ''
+while command != 'q':
+    print(player)
+    command = input('Command: ')
