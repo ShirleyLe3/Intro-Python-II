@@ -63,7 +63,6 @@ command = ''
 
 # user actions
 def do(command):
-    print('\n')
     command = command.strip()
     command = command.split(' ')
 
@@ -84,10 +83,9 @@ def do(command):
             player.drop(command[1])
         else:
             print('Specify an item to drop.')
-    print('\n')
 
 # game loop
 while command != 'q':
-    print(player)
+    print(f'\n{player}\n')
     command = input('Command: ')
     do(command)

@@ -44,4 +44,3 @@ class Room:
             print(f'You looked around for [{item_name}] but found none.')
     def give(self, item):
         self.items.append(item)
-        print(f'You dropped [{item.name}] in {self.name}')

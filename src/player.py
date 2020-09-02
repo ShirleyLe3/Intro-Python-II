@@ -14,18 +14,20 @@ class Player:
     def move(self, direction):
         if self.current_room[direction] is not None:
             self.current_room = self.current_room[direction]
+            print("You've arrived at...")
         else:
             print("Cannot go that way.")
 
     def give(self, item):
         self.items.append(item)
-        print(f"You took [{item.name}]")
+        item.on_take()
 
     def drop(self, item_name):
         found = False
         for i, item in enumerate(self.items):
             if item.name == item_name:
                 self.current_room.give(item)
+                item.on_drop(self.current_room.name)
                 del self.items[i]
                 found = True
         if not found:
