@@ -71,14 +71,19 @@ def do(command):
     command[0] == 'e' or
     command[0] == 's' or
     command[0] == 'w'):
-        player.move(command)
+        player.move(command[0])
     if command[0] == 'look':
         player.current_room.look()
-    if command[0] == 'take':
+    if command[0] == 'take' or command[0] == 'get':
         if len(command) > 1:
             player.current_room.take(command[1], player)
         else:
             print('Specify an item to take.')
+    if command[0] == 'drop':
+        if len(command) > 1:
+            player.drop(command[1])
+        else:
+            print('Specify an item to drop.')
     print('\n')
 
 # game loop

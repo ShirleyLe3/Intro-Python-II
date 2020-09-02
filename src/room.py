@@ -41,4 +41,7 @@ class Room:
                 del self.items[i]
                 found = True
         if not found:
-            print(f'You looked around for {item_name} but found none.')
+            print(f'You looked around for [{item_name}] but found none.')
+    def give(self, item):
+        self.items.append(item)
+        print(f'You dropped [{item.name}] in {self.name}')
