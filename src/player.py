@@ -31,4 +31,22 @@ class Player:
                 del self.items[i]
                 found = True
         if not found:
-            print(f"You checked your pockets for [{item_name}] but found none.")
+            print(f"You checked your bag for [{item_name}] but found none.")
+
+    def bag(self, item_name = None):
+        if item_name is None:
+            text = "In your bag you have...\n"
+            if len(self.items) > 0:
+                for item in self.items:
+                    text += f"-{item.name}\n"
+            else:
+                text += "Nothing. Perhaps you should have brought something."
+            print(text)
+        else:
+            found = False
+            for item in self.items:
+                if item.name == item_name:
+                    print(item.description)
+                    found = True
+            if not found:
+                print(f"You checked your bag for [{item_name}] but found none.")
