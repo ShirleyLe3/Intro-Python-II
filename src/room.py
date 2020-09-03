@@ -46,7 +46,7 @@ class Room(ItemContainer):
 
     def take(self, item_name, player):
         item = self.__find_item__(item_name)
-        if item is not None and (not self.dark) or (player.lantern_on):
+        if item is not None and ((not self.dark) or (player.lantern_on)):
             player.give(item)
             self.__delete_item__(item)
         else:

@@ -1,18 +1,33 @@
 from item_container import ItemContainer
 
 class Player(ItemContainer):
-    def __init__(self, name, current_room):
+    def __init__(self, name, current_room, world):
         super().__init__(name)
         self.current_room = current_room
         self.lantern_on = False
+        self.world = world
 
     def __str__(self):
         return f"----------\n\nCurrent Location:\nRoom: {self.current_room.name}\nDescription: {self.current_room.get_desc(self.lantern_on)}\n=========="
 
+    def __check_can_move__(self, direction):
+        try:
+            room_events = self.world.events[self.current_room[direction].name]
+        except:
+            room_events = None
+        if room_events is not None:
+            if room_events["can_enter"]:
+                return True
+            else:
+                return False
+        else:
+            return True
+
     def move(self, direction):
         if self.current_room[direction] is not None:
-            self.current_room = self.current_room[direction]
-            print("You've arrived at...")
+            if self.__check_can_move__(direction):
+                self.current_room = self.current_room[direction]
+                print("You've arrived at...")
         else:
             print("Cannot go that way.")
 

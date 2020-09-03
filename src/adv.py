@@ -2,8 +2,11 @@ import os
 from room import Room
 from player import Player
 from item import Item
+from world import World
 from game_text import room_desc, print_intro
 
+# Create world object
+world = World()
 # Create items
 items = {
     "key": Item("key", "-A rusty old [key]."),
@@ -63,7 +66,7 @@ def get_help():
 
 # game start
 name = input("Enter your name: ")
-player = Player("Player", room["outside"])
+player = Player("Player", room["outside"], world)
 command = ""
 print_intro(name)
 
