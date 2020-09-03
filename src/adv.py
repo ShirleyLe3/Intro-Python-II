@@ -2,9 +2,11 @@ import os
 from room import Room
 from player import Player
 from item import Item
+from room_desc import room_desc
+
 # Create items
 items = {
-    "key": Item("key", "A rusty old key."),
+    "key": Item("key", "-A rusty old [key]."),
     "sword": Item("sword", "-A heavy, worn [sword]. Sharp enough."),
 }
 
@@ -12,30 +14,24 @@ items = {
 room = {
     "outside": Room(
         "Outside Cave Entrance",
-        "North of you, the cave mount beckons",
+        room_desc["outside"],
         [items["sword"]],
     ),
     "foyer": Room(
         "Foyer",
-        """Dim light filters in from the south. Dusty
-passages run north and east.""",
+        room_desc["foyer"],
     ),
     "overlook": Room(
         "Grand Overlook",
-        """A steep cliff appears before you, falling
-into the darkness. Ahead to the north, a light flickers in
-the distance, but there is no way across the chasm.""",
+        room_desc["overlook"],
     ),
     "narrow": Room(
         "Narrow Passage",
-        """The narrow passage bends here from west
-to north. The smell of gold permeates the air.""",
+        room_desc["narrow"],
     ),
     "treasure": Room(
         "Treasure Chamber",
-        """You've found the long-lost treasure
-chamber! Sadly, it has already been completely emptied by
-earlier adventurers. The only exit is to the south.""",
+        room_desc["treasure"],
     ),
 }
 
@@ -68,17 +64,21 @@ room["treasure"].s_to = room["narrow"]
 #
 # If the user enters "q", quit the game.
 
+
 def get_help():
     cwd = os.getcwd()
-    f = open(f'{cwd}\\src\\help.txt', 'r')
+    f = open(f"{cwd}\\src\\help.txt", "r")
     print(f.read())
     f.close()
 
-name = input('Enter your name: ')
+
+name = input("Enter your name: ")
 # name = "Drew"
 player = Player(name, room["outside"])
 command = ""
-print(f"""\n\nHello {name}! You have started your adventure. Type the 'help' command for more information. At the start of your journey, you find yourself...""")
+print(
+    f"""\n\nHello {name}! You have started your adventure. Type the 'help' command for more information. At the start of your journey, you find yourself..."""
+)
 # user actions
 def do(command):
     command = command.strip()
@@ -109,6 +109,8 @@ def do(command):
         print(f"Goodbye {name}...")
     else:
         print("Invalid command. Type 'help' to see a list of commands.")
+
+
 # game loop
 while command != "q":
     print(f"\n{player}\n")
