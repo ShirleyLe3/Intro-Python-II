@@ -19,7 +19,7 @@ room = {
     "outside": Room(
         "Outside Cave Entrance",
         room_desc["outside"],
-        [items["sword"]],
+        [items["sword"], items["key"]],
     ),
     "foyer": Room(
         "Foyer",

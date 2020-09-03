@@ -3,7 +3,9 @@ class World:
         self.events = {
             "Foyer": {
                 "can_enter": True,
-                "unlock": "Stairwell"
+                "event_type": "unlock",
+                "event_target": "Stairwell",
+                "requires": "key"
             },
             "Stairwell": {
                 "can_enter": False,
@@ -12,10 +14,16 @@ class World:
                 }
         }
 
-    def unlock(self, room_name):
+    def trigger(self, room_name, item_name):
         try:
-            room = self.events[self.events[room_name]["unlock"]]
-            room["can_enter"] = True
-            print(room["unlocked_message"])
+            target = self.events[self.events[room_name]["event_target"]]
+            item = self.events[room_name]["requires"]
+            event = self.events[room_name]["event_type"]
+            if item_name == item:
+                if event == "unlock":
+                    target["can_enter"] = True
+                    print(target["unlocked_message"])
+            else:
+                print("Can't use that here")
         except:
             print("Can't use that here")
