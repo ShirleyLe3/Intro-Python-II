@@ -17,5 +17,5 @@ drop [item name]              | Drop an item
 ------------------------------------------------------------
 inventory, i, bag             | List items in your bag
 ------------------------------------------------------------
-inventory, i, bag [item name] | Inspect item in your bag
+use [item name]               | Use an item in your bag
 ------------------------------------------------------------

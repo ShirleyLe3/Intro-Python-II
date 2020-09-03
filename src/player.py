@@ -34,15 +34,16 @@ class Player:
         for i, my_item in enumerate(self.items):
             if my_item.name == item.name:
                 del self.items[i]
-            else:
-                break
 
     def drop(self, item_name):
         item = self.__find_item__(item_name)
         if item is not None:
-            self.current_room.give(item)
-            item.on_drop(self, self.current_room.name)
-            self.__delete_item__(item)
+            if item.name == "lantern":
+                print("I shouldn't drop this.")
+            else:
+                self.current_room.give(item)
+                item.on_drop(self, self.current_room.name)
+                self.__delete_item__(item)
         else:
             print(f"You checked your bag for [{item_name}] but found none.")
 
@@ -54,12 +55,17 @@ class Player:
                     text += f"-[{item.name}]\n"
             else:
                 text += "Nothing. Perhaps you should have brought something."
-            print(text)
+            print(text.rstrip())
         else:
-            found = False
-            for item in self.items:
-                if item.name == item_name:
-                    print(item.description)
-                    found = True
-            if not found:
+            item = self.__find_item__(item_name)
+            if item is not None:
+                print(item.description)
+            else:
                 print(f"You checked your bag for [{item_name}] but found none.")
+
+    def use(self, item_name):
+        item = self.__find_item__(item_name)
+        if item is not None:
+            if item.name == "lantern":
+                self.lantern_on = not self.lantern_on
+                print(f"You turned {'on' if self.lantern_on else 'off' } the lantern.")

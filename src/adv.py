@@ -8,6 +8,7 @@ from game_text import room_desc, print_intro
 items = {
     "key": Item("key", "-A rusty old [key]."),
     "sword": Item("sword", "-A heavy, worn [sword]. Sharp enough."),
+    "lantern": Item("lantern", "-An oil [lantern]. This could be useful in dark places.")
 }
 
 # Declare all the rooms
@@ -26,14 +27,19 @@ room = {
     "overlook": Room(
         "Grand Overlook",
         room_desc["overlook"],
+        [items["lantern"]],
     ),
     "narrow": Room(
         "Narrow Passage",
         room_desc["narrow"],
+        [],
+        True
     ),
     "treasure": Room(
         "Treasure Chamber",
         room_desc["treasure"],
+        [],
+        True
     ),
 }
 
@@ -80,7 +86,7 @@ def do(command):
         if len(command) > 1:
             player.drop(command[1])
         else:
-            print("Specify an item to drop.\n")
+            print("Specify an item to drop.")
     elif command[0] == "i" or command[0] == "inventory" or command[0] == "bag":
         if len(command) > 1:
             player.bag(command[1])
@@ -90,6 +96,11 @@ def do(command):
         get_help()
     elif command[0] == "q":
         print(f"Goodbye {name}...")
+    elif command[0] == "use":
+        if len(command) > 1:
+            player.use(command[1])
+        else:
+            print("Specify an item in your bag to use.")
     else:
         print("Invalid command. Type 'help' to see a list of commands.")
 
