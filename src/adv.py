@@ -1,7 +1,7 @@
+import os
 from room import Room
 from player import Player
 from item import Item
-
 # Create items
 items = {
     "key": Item("key", "A rusty old key."),
@@ -67,11 +67,18 @@ room["treasure"].s_to = room["narrow"]
 # Print an error message if the movement isn't allowed.
 #
 # If the user enters "q", quit the game.
-# name = input('Enter your name: ')
-name = "Drew"
+
+def get_help():
+    cwd = os.getcwd()
+    f = open(f'{cwd}\\src\\help.txt', 'r')
+    print(f.read())
+    f.close()
+
+name = input('Enter your name: ')
+# name = "Drew"
 player = Player(name, room["outside"])
 command = ""
-
+print(f"""\n\nHello {name}! You have started your adventure. Type the 'help' command for more information. At the start of your journey, you find yourself...""")
 # user actions
 def do(command):
     command = command.strip()
@@ -79,24 +86,29 @@ def do(command):
 
     if command[0] == "n" or command[0] == "e" or command[0] == "s" or command[0] == "w":
         player.move(command[0])
-    if command[0] == "look":
+    elif command[0] == "look":
         player.current_room.look()
-    if command[0] == "take" or command[0] == "get":
+    elif command[0] == "take" or command[0] == "get":
         if len(command) > 1:
             player.current_room.take(command[1], player)
         else:
             print("Specify an item to take.")
-    if command[0] == "drop":
+    elif command[0] == "drop":
         if len(command) > 1:
             player.drop(command[1])
         else:
             print("Specify an item to drop.")
-    if command[0] == "i" or command[0] == "inventory" or command[0] == "bag":
+    elif command[0] == "i" or command[0] == "inventory" or command[0] == "bag":
         if len(command) > 1:
             player.bag(command[1])
         else:
             player.bag()
-
+    elif command[0] == "help":
+        get_help()
+    elif command[0] == "q":
+        print(f"Goodbye {name}...")
+    else:
+        print("Invalid command. Type 'help' to see a list of commands.")
 # game loop
 while command != "q":
     print(f"\n{player}\n")

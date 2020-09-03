@@ -9,7 +9,7 @@ class Player:
         self.items = []
 
     def __str__(self):
-        return f"-----\nRoom: {self.current_room.name}\nDescription: {self.current_room.description}\n-----"
+        return f"-----\nCurrent Location:\nRoom: {self.current_room.name}\nDescription: {self.current_room.description}\n-----"
 
     def move(self, direction):
         if self.current_room[direction] is not None:

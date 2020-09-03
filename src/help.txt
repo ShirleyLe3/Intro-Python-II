@@ -1,0 +1,21 @@
+You can type commands to move your character
+around the world and interact with your
+environment.
+Here is a list of commands you can type:
+
+q                             | Quit game
+------------------------------------------------------------
+help                          | Display this help file
+------------------------------------------------------------
+n, e, s, w                    | Move in a cardinal direction
+------------------------------------------------------------
+look                          | Look at your surroundings
+------------------------------------------------------------
+take, get [item name]         | Take an item
+------------------------------------------------------------
+drop [item name]              | Drop an item
+------------------------------------------------------------
+inventory, i, bag             | List items in your bag
+------------------------------------------------------------
+inventory, i, bag [item name] | Inspect item in your bag
+------------------------------------------------------------
