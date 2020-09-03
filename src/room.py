@@ -23,6 +23,20 @@ class Room:
         elif direction == "w":
             return self.w_to
 
+    def __find_item__(self, item_name):
+        for item in self.items:
+            if item.name == item_name:
+                return item
+            else:
+                return None
+
+    def __delete_item__(self, item):
+        for i, my_item in enumerate(self.items):
+            if my_item.name == item.name:
+                del self.items[i]
+            else:
+                break
+
     def get_desc(self, lantern_on):
         if self.dark and not lantern_on:
             return "The room is too dark to see anything."
@@ -48,13 +62,11 @@ class Room:
         print(text.rstrip())
 
     def take(self, item_name, player):
-        found = False
-        for i, item in enumerate(self.items):
-            if item.name == item_name:
-                player.give(item)
-                del self.items[i]
-                found = True
-        if not found:
+        item = self.__find_item__(item_name)
+        if item is not None and (not self.dark) or (player.lantern_on):
+            player.give(item)
+            self.__delete_item__(item)
+        else:
             print(f"You looked around for [{item_name}] but found none.")
 
     def give(self, item):
