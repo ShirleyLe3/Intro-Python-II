@@ -34,7 +34,7 @@ class Player(ItemContainer):
 
     def give(self, item):
         super().give(item)
-        item.on_take(self)
+        item.on_take()
 
     def drop(self, item_name):
         item = self._find_item(item_name)
@@ -43,7 +43,7 @@ class Player(ItemContainer):
                 print("I shouldn't drop this.")
             else:
                 self.current_room.give(item)
-                item.on_drop(self, self.current_room.name)
+                item.on_drop(self.current_room.name)
                 self._delete_item(item)
         else:
             print(f"You checked your bag for [{item_name}] but found none.")

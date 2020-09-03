@@ -5,13 +5,13 @@ class World:
                 "can_enter": True,
                 "event_type": "unlock",
                 "event_target": "Stairwell",
-                "requires": "key"
+                "requires": "key",
             },
             "Stairwell": {
                 "can_enter": False,
                 "locked_message": "The passage is barred by a locked gate.",
                 "unlocked_message": "You used the key to unlock the gate.",
-                }
+            },
         }
 
     def trigger(self, room_name, item_name):
