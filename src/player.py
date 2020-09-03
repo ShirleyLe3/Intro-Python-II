@@ -10,7 +10,7 @@ class Player(ItemContainer):
     def __str__(self):
         return f"----------\n\nCurrent Location:\nRoom: {self.current_room.name}\nDescription: {self.current_room.get_desc(self.lantern_on)}\n=========="
 
-    def __check_can_move__(self, direction):
+    def __check_can_move(self, direction):
         try:
             room_events = self.world.events[self.current_room[direction].name]
         except:
@@ -25,7 +25,7 @@ class Player(ItemContainer):
 
     def move(self, direction):
         if self.current_room[direction] is not None:
-            if self.__check_can_move__(direction):
+            if self.__check_can_move(direction):
                 self.current_room = self.current_room[direction]
                 print("You've arrived at...")
         else:
@@ -36,14 +36,14 @@ class Player(ItemContainer):
         item.on_take(self)
 
     def drop(self, item_name):
-        item = self.__find_item__(item_name)
+        item = self._find_item(item_name)
         if item is not None:
             if item.name == "lantern":
                 print("I shouldn't drop this.")
             else:
                 self.current_room.give(item)
                 item.on_drop(self, self.current_room.name)
-                self.__delete_item__(item)
+                self._delete_item(item)
         else:
             print(f"You checked your bag for [{item_name}] but found none.")
 
@@ -57,14 +57,14 @@ class Player(ItemContainer):
                 text += "Nothing. Perhaps you should have brought something."
             print(text.rstrip())
         else:
-            item = self.__find_item__(item_name)
+            item = self._find_item(item_name)
             if item is not None:
                 print(item.description)
             else:
                 print(f"You checked your bag for [{item_name}] but found none.")
 
     def use(self, item_name):
-        item = self.__find_item__(item_name)
+        item = self._find_item(item_name)
         if item is not None:
             if item.name == "lantern":
                 self.lantern_on = not self.lantern_on

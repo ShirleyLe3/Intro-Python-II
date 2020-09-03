@@ -3,13 +3,13 @@ class ItemContainer:
         self.name = name
         self.items = items
 
-    def __find_item__(self, item_name):
+    def _find_item(self, item_name):
         for item in self.items:
             if item.name == item_name:
                 return item
         return None
 
-    def __delete_item__(self, item):
+    def _delete_item(self, item):
         for i, my_item in enumerate(self.items):
             if my_item.name == item.name:
                 del self.items[i]

@@ -45,9 +45,9 @@ class Room(ItemContainer):
         print(text.rstrip())
 
     def take(self, item_name, player):
-        item = self.__find_item__(item_name)
+        item = self._find_item(item_name)
         if item is not None and ((not self.dark) or (player.lantern_on)):
             player.give(item)
-            self.__delete_item__(item)
+            self._delete_item(item)
         else:
             print(f"You looked around for [{item_name}] but found none.")
