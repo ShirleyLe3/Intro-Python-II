@@ -11,6 +11,8 @@ to north. The smell of gold permeates the air.""",
     "treasure": """You've found the long-lost treasure
 chamber! Sadly, it has already been completely emptied by
 earlier adventurers. The only exit is to the south.""",
+    "stairwell": """A steep and winding stairwell that descends
+deep underground.""",
 }
 
 def print_intro(name):

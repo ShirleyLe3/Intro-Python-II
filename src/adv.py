@@ -44,6 +44,11 @@ room = {
         [items["key"]],
         True
     ),
+    "stairwell": Room(
+        "Stairwell",
+        room_desc["stairwell"],
+        [],
+    )
 }
 
 # Link rooms together
@@ -55,7 +60,8 @@ room["overlook"].s_to = room["foyer"]
 room["narrow"].w_to = room["foyer"]
 room["narrow"].n_to = room["treasure"]
 room["treasure"].s_to = room["narrow"]
-
+room["stairwell"].e_to = room["foyer"]
+room["foyer"].w_to = room["stairwell"]
 
 def get_help():
     cwd = os.getcwd()

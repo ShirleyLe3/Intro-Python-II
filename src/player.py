@@ -19,6 +19,7 @@ class Player(ItemContainer):
             if room_events["can_enter"]:
                 return True
             else:
+                print(room_events["locked_message"])
                 return False
         else:
             return True
@@ -69,5 +70,7 @@ class Player(ItemContainer):
             if item.name == "lantern":
                 self.lantern_on = not self.lantern_on
                 print(f"You turned {'on' if self.lantern_on else 'off' } the lantern.")
+            if item.name == "key":
+                self.world.unlock(self.current_room.name)
         else:
             print(f"You checked your bag for [{item_name}] but found none.")
