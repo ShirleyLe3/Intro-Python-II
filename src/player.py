@@ -12,17 +12,6 @@ class Player:
     def __str__(self):
         return f"----------\n\nCurrent Location:\nRoom: {self.current_room.name}\nDescription: {self.current_room.get_desc(self.lantern_on)}\n=========="
 
-    def move(self, direction):
-        if self.current_room[direction] is not None:
-            self.current_room = self.current_room[direction]
-            print("You've arrived at...")
-        else:
-            print("Cannot go that way.")
-
-    def give(self, item):
-        self.items.append(item)
-        item.on_take(self)
-
     def __find_item__(self, item_name):
         for item in self.items:
             if item.name == item_name:
@@ -34,6 +23,17 @@ class Player:
         for i, my_item in enumerate(self.items):
             if my_item.name == item.name:
                 del self.items[i]
+
+    def move(self, direction):
+        if self.current_room[direction] is not None:
+            self.current_room = self.current_room[direction]
+            print("You've arrived at...")
+        else:
+            print("Cannot go that way.")
+
+    def give(self, item):
+        self.items.append(item)
+        item.on_take(self)
 
     def drop(self, item_name):
         item = self.__find_item__(item_name)
@@ -47,7 +47,7 @@ class Player:
         else:
             print(f"You checked your bag for [{item_name}] but found none.")
 
-    def bag(self, item_name = None):
+    def bag(self, item_name=None):
         if item_name is None:
             text = "In your bag you have...\n"
             if len(self.items) > 0:

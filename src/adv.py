@@ -38,7 +38,7 @@ room = {
     "treasure": Room(
         "Treasure Chamber",
         room_desc["treasure"],
-        [],
+        [items["key"]],
         True
     ),
 }
