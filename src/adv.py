@@ -2,7 +2,7 @@ import os
 from room import Room
 from player import Player
 from item import Item
-from room_desc import room_desc
+from game_text import room_desc, print_intro
 
 # Create items
 items = {
@@ -20,6 +20,8 @@ room = {
     "foyer": Room(
         "Foyer",
         room_desc["foyer"],
+        [],
+        True
     ),
     "overlook": Room(
         "Grand Overlook",
@@ -35,9 +37,7 @@ room = {
     ),
 }
 
-
 # Link rooms together
-
 room["outside"].n_to = room["foyer"]
 room["foyer"].s_to = room["outside"]
 room["foyer"].n_to = room["overlook"]
@@ -47,23 +47,6 @@ room["narrow"].w_to = room["foyer"]
 room["narrow"].n_to = room["treasure"]
 room["treasure"].s_to = room["narrow"]
 
-#
-# Main
-#
-
-# Make a new player object that is currently in the 'outside' room.
-
-# Write a loop that:
-#
-# * Prints the current room name
-# * Prints the current description (the textwrap module might be useful here).
-# * Waits for user input and decides what to do.
-#
-# If the user enters a cardinal direction, attempt to move to the room there.
-# Print an error message if the movement isn't allowed.
-#
-# If the user enters "q", quit the game.
-
 
 def get_help():
     cwd = os.getcwd()
@@ -72,13 +55,13 @@ def get_help():
     f.close()
 
 
+# game start
 name = input("Enter your name: ")
-# name = "Drew"
-player = Player(name, room["outside"])
+player = Player("Player", room["outside"])
 command = ""
-print(
-    f"""\n\nHello {name}! You have started your adventure. Type the 'help' command for more information. At the start of your journey, you find yourself..."""
-)
+print_intro(name)
+
+
 # user actions
 def do(command):
     command = command.strip()
@@ -87,7 +70,7 @@ def do(command):
     if command[0] == "n" or command[0] == "e" or command[0] == "s" or command[0] == "w":
         player.move(command[0])
     elif command[0] == "look":
-        player.current_room.look()
+        player.current_room.look(player.lantern_on)
     elif command[0] == "take" or command[0] == "get":
         if len(command) > 1:
             player.current_room.take(command[1], player)
@@ -97,7 +80,7 @@ def do(command):
         if len(command) > 1:
             player.drop(command[1])
         else:
-            print("Specify an item to drop.")
+            print("Specify an item to drop.\n")
     elif command[0] == "i" or command[0] == "inventory" or command[0] == "bag":
         if len(command) > 1:
             player.bag(command[1])
@@ -113,6 +96,6 @@ def do(command):
 
 # game loop
 while command != "q":
-    print(f"\n{player}\n")
+    print(f"\n{player}\n\n==========")
     command = input("Command: ")
     do(command)

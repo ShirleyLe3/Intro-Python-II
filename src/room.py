@@ -3,7 +3,7 @@
 
 
 class Room:
-    def __init__(self, name, description, items=[]):
+    def __init__(self, name, description, items=[], dark=False):
         self.name = name
         self.description = description
         self.items = items
@@ -11,6 +11,7 @@ class Room:
         self.e_to = None
         self.s_to = None
         self.w_to = None
+        self.dark = dark
 
     def __getitem__(self, direction):
         if direction == "n":
@@ -22,7 +23,13 @@ class Room:
         elif direction == "w":
             return self.w_to
 
-    def look(self):
+    def get_desc(self, lantern_on):
+        if self.dark and not lantern_on:
+            return "The room is too dark to see anything."
+        else:
+            return self.description
+
+    def look(self, lantern_on):
         text = "You look around and see...\n"
         if self.n_to is not None:
             text += f"North: {self.n_to.name}\n"
@@ -32,10 +39,13 @@ class Room:
             text += f"South: {self.s_to.name}\n"
         if self.w_to is not None:
             text += f"West: {self.w_to.name}\n"
-        if len(self.items) > 0:
-            for item in self.items:
-                text += f"{item.description}\n"
-        print(text)
+        if self.dark and not lantern_on:
+            text += "The room is too dark to see anything else."
+        else:
+            if len(self.items) > 0:
+                for item in self.items:
+                    text += f"{item.description}\n"
+        print(text.rstrip())
 
     def take(self, item_name, player):
         found = False

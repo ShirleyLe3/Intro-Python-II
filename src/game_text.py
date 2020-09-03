@@ -11,3 +11,10 @@ to north. The smell of gold permeates the air.""",
 chamber! Sadly, it has already been completely emptied by
 earlier adventurers. The only exit is to the south.""",
 }
+
+def print_intro(name):
+    print(f"""\n\nHello {name}! You have started your adventure.
+Type the 'help' command for more information.
+
+==========
+At the start of your journey, you find yourself...""")
