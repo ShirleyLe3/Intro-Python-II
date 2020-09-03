@@ -1,28 +1,13 @@
-# Write a class to hold player information, e.g. what room they are in
-# currently.
+from item_container import ItemContainer
 
-
-class Player:
+class Player(ItemContainer):
     def __init__(self, name, current_room):
-        self.name = name
+        super().__init__(name)
         self.current_room = current_room
-        self.items = []
         self.lantern_on = False
 
     def __str__(self):
         return f"----------\n\nCurrent Location:\nRoom: {self.current_room.name}\nDescription: {self.current_room.get_desc(self.lantern_on)}\n=========="
-
-    def __find_item__(self, item_name):
-        for item in self.items:
-            if item.name == item_name:
-                return item
-            else:
-                return None
-
-    def __delete_item__(self, item):
-        for i, my_item in enumerate(self.items):
-            if my_item.name == item.name:
-                del self.items[i]
 
     def move(self, direction):
         if self.current_room[direction] is not None:
@@ -32,7 +17,7 @@ class Player:
             print("Cannot go that way.")
 
     def give(self, item):
-        self.items.append(item)
+        super().give(item)
         item.on_take(self)
 
     def drop(self, item_name):
@@ -69,3 +54,5 @@ class Player:
             if item.name == "lantern":
                 self.lantern_on = not self.lantern_on
                 print(f"You turned {'on' if self.lantern_on else 'off' } the lantern.")
+        else:
+            print(f"You checked your bag for [{item_name}] but found none.")

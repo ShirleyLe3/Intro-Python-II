@@ -1,12 +1,9 @@
-# Implement a class to hold room information. This should have name and
-# description attributes.
+from item_container import ItemContainer
 
-
-class Room:
-    def __init__(self, name, description, items=[], dark=False):
-        self.name = name
+class Room(ItemContainer):
+    def __init__(self, name, description, items, dark=False):
+        super().__init__(name, items)
         self.description = description
-        self.items = items
         self.n_to = None
         self.e_to = None
         self.s_to = None
@@ -22,20 +19,6 @@ class Room:
             return self.s_to
         elif direction == "w":
             return self.w_to
-
-    def __find_item__(self, item_name):
-        for item in self.items:
-            if item.name == item_name:
-                return item
-            else:
-                return None
-
-    def __delete_item__(self, item):
-        for i, my_item in enumerate(self.items):
-            if my_item.name == item.name:
-                del self.items[i]
-            else:
-                break
 
     def get_desc(self, lantern_on):
         if self.dark and not lantern_on:
@@ -68,6 +51,3 @@ class Room:
             self.__delete_item__(item)
         else:
             print(f"You looked around for [{item_name}] but found none.")
-
-    def give(self, item):
-        self.items.append(item)
